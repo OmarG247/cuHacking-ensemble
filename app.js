@@ -149,23 +149,55 @@ const REDIRECT_URI = 'http://localhost:3000/callback';
 var SpotifyWebApi = require('spotify-web-api-node')
 
 var spotifyApi = new SpotifyWebApi({
-  clientId : CLIENT_ID,
+  clientId: CLIENT_ID,
   clientSecret: CLIENT_SECRET,
-  redirectUri : REDIRECT_URI
+  redirectUri: REDIRECT_URI
 })
 
 let accessToken = 'BQDjxSAoXXcew0bsjyvphsJkDha9QNLgCuUkOoEX6IgOye3Mgr7KFEk5oxnuFaF-aG2nGbzVuWz6K74Y7Nc';
 
 spotifyApi.setAccessToken(accessToken);
 
-spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE').then(
-  function(data) {
-    console.log('Artist albums', data.body);
-  },
-  function(err) {
-    console.error(err);
-  }
-);
+// spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE').then(
+//   function (data) {
+//     console.log('Artist albums', data.body);
+//   },
+//   function (err) {
+//     console.error(err);
+//   }
+// );
+
+//const getTracks = 
+
+spotifyApi.getUserPlaylists('dc0gj9dfmo6tofbdkkx8ah09k')
+  .then(function (data) {
+    //console.log('Retrieved playlists', data.body);
+
+    let listSongs = data.body.items[0].tracks
+    console.log("These are the tracks of first playlist");
+    console.log(listSongs);
+
+    let playlistLink = listSongs.href;
+
+    console.log("This is the link of playlist");
+    console.log(playlistLink);
+
+    var counter = 0;
+    for (let i = 0; i < playlistLink.lentgh; i++) {
+      if (playlistLink[i] === '/') {
+        counter++;
+      } 
+    }
+
+    var regex = '([5A-Z])\w+';
+    let playlistCode = playlistLink.match(regex)
+
+    console.log("This is the code: ");
+    console.log(playlistCode);
+
+  }, function (err) {
+    console.log('Something went wrong!', err);
+  });
 
 app.get('/getdata', (req, res) => {
   res.redirect(`https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=http://${req.hostname}/playlists.html&scope=playlist-read-private`)
