@@ -20,6 +20,11 @@ const REDIRECT_URI = 'https://boiling-basin-27768.herokuapp.com/callback';
 //Request a track: 2dpaYNEQHiRxtZbfNsse99
 //curl -H "Authorization: Bearer BQAnyB16-GdjO7xJKOoBy0pQ6G2mGHwdsxzorWQBUjy6Po3oCvuupEapak5bp7vKs5lkDJOtYspgDd7Amxc" https://api.spotify.com/v1/tracks/2dpaYNEQHiRxtZbfNsse99
 
+//curl -H "Authorization: Bearer BQAnyB16-GdjO7xJKOoBy0pQ6G2mGHwdsxzorWQBUjy6Po3oCvuupEapak5bp7vKs5lkDJOtYspgDd7Amxc" https://api.spotify.com/v1/artists/64KEffDW9EtZ1y2vBYgq8T
+
+//Artist
+//64KEffDW9EtZ1y2vBYgq8T
+
 //Sample song
 // {
 //   "album" : {
@@ -108,6 +113,37 @@ const REDIRECT_URI = 'https://boiling-basin-27768.herokuapp.com/callback';
 //   "track_number" : 1,
 //   "type" : "track",
 //   "uri" : "spotify:track:2dpaYNEQHiRxtZbfNsse99"
+// }
+
+//Sample artist
+// {
+//   "external_urls" : {
+//     "spotify" : "https://open.spotify.com/artist/64KEffDW9EtZ1y2vBYgq8T"
+//   },
+//   "followers" : {
+//     "href" : null,
+//     "total" : 9073440
+//   },
+//   "genres" : [ "brostep", "egyptian pop", "progressive electro house" ],
+//   "href" : "https://api.spotify.com/v1/artists/64KEffDW9EtZ1y2vBYgq8T",
+//   "id" : "64KEffDW9EtZ1y2vBYgq8T",
+//   "images" : [ {
+//     "height" : 640,
+//     "url" : "https://i.scdn.co/image/65f40b9a99ebb96921d5366537cdff7d5661d914",
+//     "width" : 640
+//   }, {
+//     "height" : 320,
+//     "url" : "https://i.scdn.co/image/719dab7f27ba0793b4ca7c5672ecf56d3d88467b",
+//     "width" : 320
+//   }, {
+//     "height" : 160,
+//     "url" : "https://i.scdn.co/image/d390ea8d34e3066c927eca1a67a9e6ccb6e943a1",
+//     "width" : 160
+//   } ],
+//   "name" : "Marshmello",
+//   "popularity" : 90,
+//   "type" : "artist",
+//   "uri" : "spotify:artist:64KEffDW9EtZ1y2vBYgq8T"
 // }
 
 //Spotify API require
