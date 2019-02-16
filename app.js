@@ -19,7 +19,7 @@ const REDIRECT_URI = 'https://boiling-basin-27768.herokuapp.com/callback';
 //Access token 
 //Request a track: 2dpaYNEQHiRxtZbfNsse99
 //curl -H "Authorization: Bearer BQAnyB16-GdjO7xJKOoBy0pQ6G2mGHwdsxzorWQBUjy6Po3oCvuupEapak5bp7vKs5lkDJOtYspgDd7Amxc" https://api.spotify.com/v1/tracks/2dpaYNEQHiRxtZbfNsse99
-
+//
 //Sample song
 // {
 //   "album" : {
@@ -109,7 +109,7 @@ const REDIRECT_URI = 'https://boiling-basin-27768.herokuapp.com/callback';
 //   "type" : "track",
 //   "uri" : "spotify:track:2dpaYNEQHiRxtZbfNsse99"
 // }
-
+//
 //Spotify API require
 var SpotifyWebApi = require('spotify-web-api-node')
 
