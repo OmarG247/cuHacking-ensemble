@@ -8,8 +8,8 @@ const fetch = require('node-fetch')
 //Spotify API require
 const SpotifyWebApi = require('spotify-web-api-node');
 
-const CLIENT_ID = '5a41d8015063438d90a806366748ab3b'
-const CLIENT_SECRET = '856a5555958c4ec4a71b72544c994c8b'
+const CLIENT_ID = '3f46110caa954bc7bd21488a97b66759'
+const CLIENT_SECRET = '37ca1672f841408e8f93292516be3322'
 const REDIRECT_URI = 'http://localhost:3000/callback';
 
 //Set up spotify API
