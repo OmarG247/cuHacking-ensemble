@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Questrial');
+
+body,
+html {
+    height: 99%;
+    width: 99%;
+    background-image: url('../images/main-bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Questrial', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-size: 40px;
+    font-family: inherit;
+}
+
+.container {
+    height: 100%;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+    display: contents;
+}
+
+.row {
+    margin-top: 180px;
+    align-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+.row-b {
+    align-content: center;
+    text-align: center;
+    display: flex;
+    height: 80px;
+}
+
+.row-list {
+    align-content: center;
+    text-align: center;
+}
+
+.main-logo {
+    height: 240px
+}
+
+.main-logo-b {
+    height: 100%;
+}
+
+.img-container-b {
+    height: 80px;
+    text-align: left;
+}
+
+.container-list {
+    
+}
+
+.main-login {
+    color: white;
+    border-bottom-color: #D41041;
+    border-bottom-width: 4px !important;
+    border-width: 0;
+    height: 80px;
+    width: 350px;
+    background-color: transparent;
+}
+
+.list-element {
+    color: white; 
+}
+
+.list-element:hover {
+    color: white; 
+    background-color: #8C0EFC
+}
+
+.list-element-active {
+    color: white;
+    background-color: #321FDD
+}
+
