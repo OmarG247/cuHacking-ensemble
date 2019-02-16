@@ -21,130 +21,6 @@ const REDIRECT_URI = 'http://localhost:3000/callback';
 
 //curl -H "Authorization: Bearer BQAnyB16-GdjO7xJKOoBy0pQ6G2mGHwdsxzorWQBUjy6Po3oCvuupEapak5bp7vKs5lkDJOtYspgDd7Amxc" https://api.spotify.com/v1/artists/64KEffDW9EtZ1y2vBYgq8T
 
-//Artist
-//64KEffDW9EtZ1y2vBYgq8T
-
-//Sample song
-// {
-//   "album" : {
-//     "album_type" : "single",
-//     "artists" : [ {
-//       "external_urls" : {
-//         "spotify" : "https://open.spotify.com/artist/64KEffDW9EtZ1y2vBYgq8T"
-//       },
-//       "href" : "https://api.spotify.com/v1/artists/64KEffDW9EtZ1y2vBYgq8T",
-//       "id" : "64KEffDW9EtZ1y2vBYgq8T",
-//       "name" : "Marshmello",
-//       "type" : "artist",
-//       "uri" : "spotify:artist:64KEffDW9EtZ1y2vBYgq8T"
-//     }, {
-//       "external_urls" : {
-//         "spotify" : "https://open.spotify.com/artist/7EQ0qTo7fWT7DPxmxtSYEc"
-//       },
-//       "href" : "https://api.spotify.com/v1/artists/7EQ0qTo7fWT7DPxmxtSYEc",
-//       "id" : "7EQ0qTo7fWT7DPxmxtSYEc",
-//       "name" : "Bastille",
-//       "type" : "artist",
-//       "uri" : "spotify:artist:7EQ0qTo7fWT7DPxmxtSYEc"
-//     } ],
-//     "available_markets" : [ "AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"
-// ],
-//     "external_urls" : {
-//       "spotify" : "https://open.spotify.com/album/78EicdHZr5XBWD7llEZ1Jh"
-//     },
-//     "href" : "https://api.spotify.com/v1/albums/78EicdHZr5XBWD7llEZ1Jh",
-//     "id" : "78EicdHZr5XBWD7llEZ1Jh",
-//     "images" : [ {
-//       "height" : 640,
-//       "url" : "https://i.scdn.co/image/13e7cea6399eaaf6cc7ead76e9582f8a9e37dbff",
-//       "width" : 640
-//     }, {
-//       "height" : 300,
-//       "url" : "https://i.scdn.co/image/600b9b6e68c7d63495d653d544a9bbbbe380f194",
-//       "width" : 300
-//     }, {
-//       "height" : 64,
-//       "url" : "https://i.scdn.co/image/12702ff263a6686503b26eafff2f3d11d814708a",
-//       "width" : 64
-//     } ],
-//     "name" : "Happier",
-//     "release_date" : "2018-08-17",
-//     "release_date_precision" : "day",
-//     "total_tracks" : 1,
-//     "type" : "album",
-//     "uri" : "spotify:album:78EicdHZr5XBWD7llEZ1Jh"
-//   },
-//   "artists" : [ {
-//     "external_urls" : {
-//       "spotify" : "https://open.spotify.com/artist/64KEffDW9EtZ1y2vBYgq8T"
-//     },
-//     "href" : "https://api.spotify.com/v1/artists/64KEffDW9EtZ1y2vBYgq8T",
-//     "id" : "64KEffDW9EtZ1y2vBYgq8T",
-//     "name" : "Marshmello",
-//     "type" : "artist",
-//     "uri" : "spotify:artist:64KEffDW9EtZ1y2vBYgq8T"
-//   }, {
-//     "external_urls" : {
-//       "spotify" : "https://open.spotify.com/artist/7EQ0qTo7fWT7DPxmxtSYEc"
-//     },
-//     "href" : "https://api.spotify.com/v1/artists/7EQ0qTo7fWT7DPxmxtSYEc",
-//     "id" : "7EQ0qTo7fWT7DPxmxtSYEc",
-//     "name" : "Bastille",
-//     "type" : "artist",
-//     "uri" : "spotify:artist:7EQ0qTo7fWT7DPxmxtSYEc"
-//   } ],
-//   "available_markets" : [ "AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA" ],
-//   "disc_number" : 1,
-//   "duration_ms" : 214289,
-//   "explicit" : false,
-//   "external_ids" : {
-//     "isrc" : "USUG11801651"
-//   },
-//   "external_urls" : {
-//     "spotify" : "https://open.spotify.com/track/2dpaYNEQHiRxtZbfNsse99"
-//   },
-//   "href" : "https://api.spotify.com/v1/tracks/2dpaYNEQHiRxtZbfNsse99",
-//   "id" : "2dpaYNEQHiRxtZbfNsse99",
-//   "is_local" : false,
-//   "name" : "Happier",
-//   "popularity" : 95,
-//   "preview_url" : null,
-//   "track_number" : 1,
-//   "type" : "track",
-//   "uri" : "spotify:track:2dpaYNEQHiRxtZbfNsse99"
-// }
-
-//Sample artist
-// {
-//   "external_urls" : {
-//     "spotify" : "https://open.spotify.com/artist/64KEffDW9EtZ1y2vBYgq8T"
-//   },
-//   "followers" : {
-//     "href" : null,
-//     "total" : 9073440
-//   },
-//   "genres" : [ "brostep", "egyptian pop", "progressive electro house" ],
-//   "href" : "https://api.spotify.com/v1/artists/64KEffDW9EtZ1y2vBYgq8T",
-//   "id" : "64KEffDW9EtZ1y2vBYgq8T",
-//   "images" : [ {
-//     "height" : 640,
-//     "url" : "https://i.scdn.co/image/65f40b9a99ebb96921d5366537cdff7d5661d914",
-//     "width" : 640
-//   }, {
-//     "height" : 320,
-//     "url" : "https://i.scdn.co/image/719dab7f27ba0793b4ca7c5672ecf56d3d88467b",
-//     "width" : 320
-//   }, {
-//     "height" : 160,
-//     "url" : "https://i.scdn.co/image/d390ea8d34e3066c927eca1a67a9e6ccb6e943a1",
-//     "width" : 160
-//   } ],
-//   "name" : "Marshmello",
-//   "popularity" : 90,
-//   "type" : "artist",
-//   "uri" : "spotify:artist:64KEffDW9EtZ1y2vBYgq8T"
-// }
-
 //Spotify API require
 var SpotifyWebApi = require('spotify-web-api-node')
 
@@ -154,50 +30,108 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri: REDIRECT_URI
 })
 
-let accessToken = 'BQDjxSAoXXcew0bsjyvphsJkDha9QNLgCuUkOoEX6IgOye3Mgr7KFEk5oxnuFaF-aG2nGbzVuWz6K74Y7Nc';
+let accessToken = 'BQBrHzH-qyx3iLriQD56XOaucs5BEpY3BUdFHMTIduWl_Ve12rxyLGnGEssXVxh1onahH9W5eqfeXkTVHVU';
 
 spotifyApi.setAccessToken(accessToken);
 
-// spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE').then(
-//   function (data) {
-//     console.log('Artist albums', data.body);
-//   },
-//   function (err) {
-//     console.error(err);
-//   }
-// );
+//Main array of playlists
+let mainPlayLists = [];
 
-//const getTracks = 
+const getPlaylistCode = (link) => {
+  let counter = 0;
+  let result = "";
 
-spotifyApi.getUserPlaylists('dc0gj9dfmo6tofbdkkx8ah09k')
-  .then(function (data) {
-    //console.log('Retrieved playlists', data.body);
+  for (let i = 0; i < link.length; i++) {
+    if (link[i] === '/') counter++;
+    if (link[i] === '?') break;
+    if (counter === 7) result += link[i];
+    if (counter === 6) counter++;
+  }
 
-    let listSongs = data.body.items[0].tracks
-    console.log("These are the tracks of first playlist");
-    console.log(listSongs);
+  return result;
+}
 
-    let playlistLink = listSongs.href;
+//Sample user 
+//https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k?si=RjI0KmhlSdeFw-QEg9KfpA
+//Sample playlist 
+//https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/1PBjEtPjjLvd9HClk9iJrF?si=kt9NTki2QtuboPaRYd4QkA
 
-    console.log("This is the link of playlist");
-    console.log(playlistLink);
+const spotifyUser = (user) => {
+  spotifyApi.getUserPlaylists('dc0gj9dfmo6tofbdkkx8ah09k')
+    .then((data) => {
+      //console.log('Retrieved playlists', data.body);
 
-    var counter = 0;
-    for (let i = 0; i < playlistLink.lentgh; i++) {
-      if (playlistLink[i] === '/') {
-        counter++;
-      } 
-    }
+      let listSongs = data.body.items[0].tracks
+      console.log("These are the tracks of first playlist");
+      console.log(listSongs);
 
-    var regex = '([5A-Z])\w+';
-    let playlistCode = playlistLink.match(regex)
+      let playlistLink = listSongs.href;
 
-    console.log("This is the code: ");
-    console.log(playlistCode);
+      console.log("This is the link of playlist");
+      console.log(playlistLink);
 
-  }, function (err) {
-    console.log('Something went wrong!', err);
-  });
+      let playlistCode = "";
+
+      playlistCode = getPlaylistCode(playlistLink);
+
+      console.log("This is the code: ");
+      console.log(playlistCode);
+
+      spotifyApi.getPlaylist(playlistCode)
+        .then(function (data) {
+          console.log('Playlist data', data.body);
+
+          let tracks = [];
+
+          tracks = data.body.tracks.items;
+
+          console.log("Actual tracks:");
+          console.log(tracks);
+
+        }, function (err) {
+          console.log('Error while getting playlist info', err);
+        });
+
+    }, (err) => {
+      console.log('Error while getting user playlist', err);
+    });
+}
+
+const addGenre = (songs) = {
+  
+}
+
+const spotifyPlaylist = (playlistLink) => {
+
+  let playlistCode = getPlaylistCode(playlistLink);
+
+  spotifyApi.getPlaylist(playlistCode)
+    .then((data) => {
+      console.log('Adding: ', data.body.name);
+
+      let tracks = [];
+
+      tracks = data.body.tracks.items;
+
+      console.log("Actual tracks:");
+      console.log(tracks.length);
+
+      console.log("Playlist name: ", data.body.name)
+
+      addGenre(tracks);
+
+      mainPlayLists.push(tracks);
+
+      console.log("Main playlist after adding a playlist")
+      console.log("Main playlist has ", mainPlayLists.length, " playlists");
+
+    }, (err) => {
+      console.log('Error while getting playlist info', err);
+    });
+}
+
+spotifyPlaylist(`https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/5pmn8JWKAH08yjPZ87DPoz?si=vNl65QkITWqAWSx7EnFMgQ`);
+spotifyPlaylist(`https://open.spotify.com/user/michael.rabbai/playlist/0gBRNNupxz2Km4uUSGLkys?si=zGO-HFDgTAOr_y0PYVoqYg`);
 
 app.get('/getdata', (req, res) => {
   res.redirect(`https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=http://${req.hostname}/playlists.html&scope=playlist-read-private`)
