@@ -4,14 +4,13 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const fetch = require('node-fetch')
-const jQuery = require('jquery')
 
 //Express app
 const app = express()
 
 const CLIENT_ID = '3f46110caa954bc7bd21488a97b66759'
 const CLIENT_SECRET = '37ca1672f841408e8f93292516be3322'
-const REDIRECT_URI = 'https://boiling-basin-27768.herokuapp.com/callback';
+const REDIRECT_URI = 'http://localhost:3000/callback';
 
 //GENERATES Access token
 //curl -X "POST" -H "Authorization: Basic M2Y0NjExMGNhYTk1NGJjN2JkMjE0ODhhOTdiNjY3NTk6MzdjYTE2NzJmODQxNDA4ZThmOTMyOTI1MTZiZTMzMjI=" -d grant_type=client_credentials https://accounts.spotify.com/api/token
@@ -155,7 +154,18 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri : REDIRECT_URI
 })
 
-let accessToken = 'BQAnyB16-GdjO7xJKOoBy0pQ6G2mGHwdsxzorWQBUjy6Po3oCvuupEapak5bp7vKs5lkDJOtYspgDd7Amxc';
+let accessToken = 'BQDjxSAoXXcew0bsjyvphsJkDha9QNLgCuUkOoEX6IgOye3Mgr7KFEk5oxnuFaF-aG2nGbzVuWz6K74Y7Nc';
+
+spotifyApi.setAccessToken(accessToken);
+
+spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE').then(
+  function(data) {
+    console.log('Artist albums', data.body);
+  },
+  function(err) {
+    console.error(err);
+  }
+);
 
 app.get('/getdata', (req, res) => {
   res.redirect(`https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=http://${req.hostname}/playlists.html&scope=playlist-read-private`)
