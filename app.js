@@ -5,6 +5,7 @@ const logger = require('morgan')
 const fetch = require('node-fetch')
 const matcher = require('./public/javascripts/cuHacking');
 const routeHandler = require('./public/javascripts/routes.js');
+const bodyParser = require('body-parser')
 
 //Express app
 const app = express()
@@ -31,7 +32,7 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri: REDIRECT_URI
 })
 
-let accessToken = 'BQC_fU_5NedM91KZ6AK5Vy9DRshdUJPctgnS1_ibMarmn76_BCsxxZe2Z7I-8tzJMwPLA7q-SDguedWEPfI';
+let accessToken = 'BQB_l7Z5B27HgNjLd2AiKKmICHRoi3dDbtC2rFQOJ3V6d1CXyML3rz6m5aIwi87640UU_L8pw2zneBAdO-k';
 
 spotifyApi.setAccessToken(accessToken);
 
@@ -193,6 +194,8 @@ const spotifyPlaylist = (playlistLink) => {
 
       console.log(matcher.createPlaylist(mainPlayLists));
 
+      return matcher.createPlaylist(mainPlayLists);
+
       console.log("Main playlist after adding a playlist")
       console.log("Main playlist has ", mainPlayLists.length, " playlists");
 
@@ -204,20 +207,21 @@ const spotifyPlaylist = (playlistLink) => {
 // spotifyPlaylist(`https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/5pmn8JWKAH08yjPZ87DPoz?si=vNl65QkITWqAWSx7EnFMgQ`);
 // spotifyPlaylist(`https://open.spotify.com/user/michael.rabbai/playlist/0gBRNNupxz2Km4uUSGLkys?si=zGO-HFDgTAOr_y0PYVoqYg`);
 
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 })
 
-app.post('/login', (req, res) => {
+app.post('/playlists', (req, res) => {
   console.log(req.body);
 
-  var playListLink = req.body.user;
+  var playListLink = req.body.link;
 
   console.log("Link requested: ", playListLink);
 
   spotifyPlaylist(playListLink);
-
-  res.send(mainPlayLists);
 })
 
 app.use(express.static('public'));
