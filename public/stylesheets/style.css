@@ -1,13 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Questrial');
+@import url('https://fonts.googleapis.com/css?family=Damion|Montserrat');
 
 body,
 html {
-    height: 99%;
-    width: 99%;
     background-image: url('../images/main-bg.jpg');
     background-size: cover;
     background-attachment: fixed;
-    font-family: 'Questrial', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 h1,
@@ -84,5 +83,15 @@ h4 {
 .list-element-active {
     color: white;
     background-color: #321FDD
+}
+
+.link-box {
+    font-family: inherit;
+    height: 40px;
+    width: 40%;
+    border-radius: 20px;
+    border-width: 0;
+    text-align: center;
+    align-content: center;
 }
 
