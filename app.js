@@ -151,12 +151,11 @@ const spotifyUser = (user) => {
 }
 
 const addGenre = (songs) => {
-
   for (let i = 0; i < songs.length; i++) {
     if (i < 7) {
-      songs[i].genre = ["rock"];
+      songs[i].genre = "rock";
     } else {
-      songs[i].genre = ["pop"];
+      songs[i].genre = "pop";
     }
   }
   
