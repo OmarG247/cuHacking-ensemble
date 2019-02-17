@@ -3,6 +3,7 @@ const express = require('express')
 const path = require('path')
 const logger = require('morgan')
 const fetch = require('node-fetch')
+const matcher = require('./cuHacking');
 
 //Express app
 const app = express()
@@ -190,6 +191,9 @@ const spotifyPlaylist = (playlistLink) => {
 
       console.log("Playlist name: ", data.body.name)
       console.log(mainPlayLists);
+
+      console.log(matcher.createPlaylist(mainPlayLists));
+
       console.log("Main playlist after adding a playlist")
       console.log("Main playlist has ", mainPlayLists.length, " playlists");
 
