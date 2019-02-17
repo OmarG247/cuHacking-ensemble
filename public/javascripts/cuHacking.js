@@ -51,8 +51,23 @@ const createPlaylist = (playlists) => {
   return genres[popularGenre];
 };
 
+
+const genrePlaylist = (playlists, genre) => {
+  let genreSpecificPlaylist = [];
+
+  for (let playlist of playlists) {
+    for (let song of playlist)
+      if (song.genre == genre)
+        genreSpecificPlaylist.push(song);
+  }
+
+  return genreSpecificPlaylist;
+};
+
+
 module.exports = {
-  createPlaylist : createPlaylist
+  createPlaylist : createPlaylist,
+  genrePlaylist : genrePlaylist
 };
 // makePlaylist(playlists);
 // createPlaylist(playlists);
