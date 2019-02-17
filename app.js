@@ -50,7 +50,7 @@ var spotifyApi = new SpotifyWebApi({
 //http://localhost:3000/callback?code=AQB9IGpZkys7b0_ZRNAqRd4ADiIcGLFQXwpIsb9MRaEv_E_y_eBOszLe9Afp1TKyv628s6XTTwhio8EJRrZhGfqulvApgdtFJ9m3nCdnN_cK4-M-NpA0taM5vMOv-aTdE4Odc7T_wzhtOJDq907di3DlUe7Uv04FXoeEEBob2OhICpKjE9eYuUxyadcPT8oRzwn6h-bHdsQu8ex5QHiSsXbrdsgbM1ElzVpTWlfhG8Uj-Hkq_svojLdwGZFV--ZM5mOhfIsfGyIlcM4QTPKEW8ilCrC0IUzkwbx5JeGskL9cxCMxsazUB2QzchExpmFfbinJulLG1b6r4QU&state=LOGIN
 
 let accessCode = 'AQB9IGpZkys7b0_ZRNAqRd4ADiIcGLFQXwpIsb9MRaEv_E_y_eBOszLe9Afp1TKyv628s6XTTwhio8EJRrZhGfqulvApgdtFJ9m3nCdnN_cK4-M-NpA0taM5vMOv-aTdE4Odc7T_wzhtOJDq907di3DlUe7Uv04FXoeEEBob2OhICpKjE9eYuUxyadcPT8oRzwn6h-bHdsQu8ex5QHiSsXbrdsgbM1ElzVpTWlfhG8Uj-Hkq_svojLdwGZFV--ZM5mOhfIsfGyIlcM4QTPKEW8ilCrC0IUzkwbx5JeGskL9cxCMxsazUB2QzchExpmFfbinJulLG1b6r4QU'
-let accessToken = 'BQApgt-C9STmi0aYpFdZ4wRW04xl7ymdT0yiPQV6XjOU50Tf4fmM5rFpy80RlBXnc9qv4Dp0wy6kQ1Nec8I'
+let accessToken = 'BQACP-8s5ZZtqPoZW9O_aQWliik-PeuQGhyvDYEuyJY76mnnMwDCmjb2uO0TmQHdXDJqCTgkCOqRfBbousA'
 
 spotifyApi.setAccessToken(accessToken);
 
@@ -287,7 +287,7 @@ app.post('/playlists', (req, res) => {
 app.use(express.static('public'));
 
 app.listen(process.env.PORT || 80, () => {
-  console.log("Server started on port 3000");
+  console.log("Server started on port 80");
 })
 
 module.exports = app

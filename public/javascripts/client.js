@@ -5,7 +5,7 @@ $(document).ready(() => {
 
     console.log("requesting: ", link);
 
-    $.post("http://localhost:3000/playlists", {
+    $.post("/playlists", {
       link: link
     }, (data) => {
       console.log("Result playlist");
