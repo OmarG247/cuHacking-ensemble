@@ -3,9 +3,10 @@ const express = require('express')
 const path = require('path')
 const logger = require('morgan')
 const fetch = require('node-fetch')
-const matcher = require('./public/javascripts/cuHacking');
+const matcher = require('./public/javascripts/generate.js');
 const routeHandler = require('./public/javascripts/routes.js');
 const bodyParser = require('body-parser')
+
 
 //Express app
 const app = express()
@@ -26,19 +27,30 @@ const REDIRECT_URI = 'http://localhost:3000/callback';
 //Spotify API require
 var SpotifyWebApi = require('spotify-web-api-node')
 
-var spotifyApi = new SpotifyWebApi({
-  clientId: CLIENT_ID,
-  clientSecret: CLIENT_SECRET,
-  redirectUri: REDIRECT_URI
-})
+var scopes = ['playlist-read-private', 'playlist-modify-private', 'playlist-modify-public', 'playlist-read-collaborative']
+var state = 'LOGIN';
 
-var spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken('BQAQngO....jYv4g');
-spotifyApi.getUserPlaylists('12186155030').then(function (data) {
-  console.log(data.body);
+// Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
+var spotifyApi = new SpotifyWebApi({
+  redirectUri: REDIRECT_URI,
+  clientId: CLIENT_ID,
+  clientSecret: CLIENT_SECRET
 });
 
-let accessToken = 'BQBRuJRCj69hf-_rqOJJKcIv1oIfwCoa5h_1wthyaw2Vm-PmiEzPucFc3WPIbsoaRtXRjqypUf-FTZyupjE'
+// // Create the authorization URL
+// var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+
+// console.log(authorizeURL);
+
+// app.get('/callback', (req, res) => {
+//   console.log("we here");
+//   console.log(req.body);
+// })
+
+//http://localhost:3000/callback?code=AQB9IGpZkys7b0_ZRNAqRd4ADiIcGLFQXwpIsb9MRaEv_E_y_eBOszLe9Afp1TKyv628s6XTTwhio8EJRrZhGfqulvApgdtFJ9m3nCdnN_cK4-M-NpA0taM5vMOv-aTdE4Odc7T_wzhtOJDq907di3DlUe7Uv04FXoeEEBob2OhICpKjE9eYuUxyadcPT8oRzwn6h-bHdsQu8ex5QHiSsXbrdsgbM1ElzVpTWlfhG8Uj-Hkq_svojLdwGZFV--ZM5mOhfIsfGyIlcM4QTPKEW8ilCrC0IUzkwbx5JeGskL9cxCMxsazUB2QzchExpmFfbinJulLG1b6r4QU&state=LOGIN
+
+let accessCode = 'AQB9IGpZkys7b0_ZRNAqRd4ADiIcGLFQXwpIsb9MRaEv_E_y_eBOszLe9Afp1TKyv628s6XTTwhio8EJRrZhGfqulvApgdtFJ9m3nCdnN_cK4-M-NpA0taM5vMOv-aTdE4Odc7T_wzhtOJDq907di3DlUe7Uv04FXoeEEBob2OhICpKjE9eYuUxyadcPT8oRzwn6h-bHdsQu8ex5QHiSsXbrdsgbM1ElzVpTWlfhG8Uj-Hkq_svojLdwGZFV--ZM5mOhfIsfGyIlcM4QTPKEW8ilCrC0IUzkwbx5JeGskL9cxCMxsazUB2QzchExpmFfbinJulLG1b6r4QU'
+let accessToken = 'BQC-GExAdRAWSY-WfM1l2xSCxUZA-oZB-jHedapSIdNQOgMLYf_m-BJP8zrvNzqlwdYQSs8NUTQciPh3BH0'
 
 spotifyApi.setAccessToken(accessToken);
 
@@ -50,6 +62,9 @@ let genres = [];
 
 //Main Codes for artists
 let codes = [];
+
+//Main final playlist
+let finalPlaylist = [];
 
 const getSongCode = (link) => {
   let counter = 0;
@@ -112,6 +127,33 @@ const getArtistGenres = async (artists) => {
     });
 }
 
+const create = (access, songs) => {
+
+  console.log("adding...");
+
+  spotifyApi
+    .authorizationCodeGrant(access)
+    .then((data) => {
+      console.log(data.body['access_token']);
+      spotifyApi.setAccessToken(data.body['access_token']);
+      return spotifyApi.addTracksToPlaylist(
+        '0wZRPN8mYpsTkNSUzNZXkN',
+        songs, {
+          position: 0
+        }, (data) => {
+          console.log(data);
+        }
+      );
+    })
+    .then((data) => {
+      console.log('Added tracks to the playlist!');
+    })
+    .catch((err) => {
+      console.log("The error is part 3")
+      console.log('Something went wrong!', err.message);
+    });
+}
+
 //Sample user
 //https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k?si=RjI0KmhlSdeFw-QEg9KfpA
 //Sample playlist
@@ -169,19 +211,19 @@ const addGenre = (songs) => {
 
 }
 
-const spotifyPlaylist = (playlistLink) => {
+const spotifyPlaylist = async (playlistLink) => {
   let playlistCode = getPlaylistCode(playlistLink);
 
   spotifyApi.getPlaylist(playlistCode)
     .then((data) => {
-      //      //console.log('Adding: ', data.body.name);
+      console.log('Adding: ', data.body.name);
 
       let tracks = [];
 
       tracks = data.body.tracks.items;
 
-      //      //console.log("Actual tracks:");
-      //      //console.log(tracks.length);
+      console.log("Actual tracks:");
+      console.log(tracks.length);
 
       addGenre(tracks);
 
@@ -192,38 +234,27 @@ const spotifyPlaylist = (playlistLink) => {
       //   codes.push(artistCode);
       // }
 
-      // //console.log(codes);
+      // console.log(codes);
 
-      //      //console.log("Playlist name: ", data.body.name)
-      //      //console.log(mainPlayLists);
-      //      //console.log(matcher.createPlaylist(mainPlayLists));
+      console.log("Playlist name: ", data.body.name)
+      console.log(mainPlayLists);
+      console.log(matcher.createPlaylist(mainPlayLists));
 
       let actualPlaylist = matcher.createPlaylist(mainPlayLists);
-      let playlistIDs = [];
-      for (let i = 0; i < actualPlaylist.length; i++) {
-        playlistIDs.push("spotify:track:" + actualPlaylist[i].track.id)
-      }
-      console.log(playlistIDs)
+      // let playlistIDs = [];
+      // for (let i = 0; i < actualPlaylist.length; i++) {
+      //   playlistIDs.push("spotify:track:" + actualPlaylist[i].track.id)
+      // }
+      // console.log(playlistIDs);
 
-      // Create a private playlist
-      let name = 'My Cool Playlist'
-      create = (name) => spotifyApi.createPlaylist(name, {
-          "public": true
-        })
-        .then(function (data) {
-          console.log('Created playlist!');
-        }, function (err) {
-          console.log('Something went wrong!', err);
-        });
-      create(name)
+      finalPlaylist.push(actualPlaylist);
 
-      return matcher.createPlaylist(mainPlayLists);
     }, (err) => {
-      //      //console.log('Error while getting playlist info', err);
+      console.log('Error while getting playlist info', err);
     });
 }
 
-spotifyPlaylist('https: //open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/5pmn8JWKAH08yjPZ87DPoz?si=vNl65QkITWqAWSx7EnFMgQ');
+//spotifyPlaylist('https: //open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/5pmn8JWKAH08yjPZ87DPoz?si=vNl65QkITWqAWSx7EnFMgQ');
 //spotifyPlaylist(https://open.spotify.com/user/michael.rabbai/playlist/0gBRNNupxz2Km4uUSGLkys?si=zGO-HFDgTAOr_y0PYVoqYg);
 
 app.use(bodyParser.urlencoded({
@@ -236,19 +267,23 @@ app.get('/', (req, res) => {
 })
 
 app.post('/playlists', (req, res) => {
-  //  //console.log(req.body);
+  console.log(req.body);
 
   var playListLink = req.body.link;
 
-  //  //console.log("Link requested: ", playListLink);
+  console.log("Link requested: ", playListLink);
 
-  spotifyPlaylist(playListLink);
+  spotifyPlaylist(playListLink).then(() => {
+    console.log("data is being sent")
+    res.send(finalPlaylist);
+  })
+
 })
 
 app.use(express.static('public'));
 
 app.listen(3000, () => {
-  //console.log("Server started on port 3000");
+  console.log("Server started on port 3000");
 })
 
 module.exports = app
