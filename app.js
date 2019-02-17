@@ -1,7 +1,6 @@
 const createError = require('http-errors')
 const express = require('express')
 const path = require('path')
-const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const fetch = require('node-fetch')
 
@@ -30,12 +29,32 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri: REDIRECT_URI
 })
 
-let accessToken = 'BQBrHzH-qyx3iLriQD56XOaucs5BEpY3BUdFHMTIduWl_Ve12rxyLGnGEssXVxh1onahH9W5eqfeXkTVHVU';
+let accessToken = 'BQC_fU_5NedM91KZ6AK5Vy9DRshdUJPctgnS1_ibMarmn76_BCsxxZe2Z7I-8tzJMwPLA7q-SDguedWEPfI';
 
 spotifyApi.setAccessToken(accessToken);
 
 //Main array of playlists
 let mainPlayLists = [];
+
+//Main genres
+let genres = [];
+
+//Main Codes for artists
+let codes = [];
+
+const getSongCode = (link) => {
+  let counter = 0;
+  let result = "";
+
+  for (let i = 0; i < link.length; i++) {
+    if (link[i] === '/') counter++;
+    if (link[i] === '?') break;
+    if (counter === 7) result += link[i];
+    if (counter === 6) counter++;
+  }
+
+  return result;
+}
 
 const getPlaylistCode = (link) => {
   let counter = 0;
@@ -49,6 +68,40 @@ const getPlaylistCode = (link) => {
   }
 
   return result;
+}
+
+const getArtistCode = (link) => {
+  let counter = 0;
+  let result = "";
+
+  for (let i = 0; i < link.length; i++) {
+    if (link[i] === '/') counter++;
+    if (counter === 5) result += link[i];
+    if (counter === 4) counter++;
+  }
+
+  return result;
+}
+
+const getArtistGenre = async (artists) =>
+{
+  return await spotifyApi.getArtist(artists[i])
+    .then((data) => {
+      getArtistGenre(artists)
+      genres.push(data.body.genres);
+    }, (err) => {
+      console.error(err);
+    });
+};
+
+const getArtistGenres = async (artists) => {
+
+  return await spotifyApi.getArtist(artists[i])
+    .then((data) => {
+      genres.push(data.body.genres);
+    }, (err) => {
+      console.error(err);
+    });
 }
 
 //Sample user 
@@ -78,7 +131,7 @@ const spotifyUser = (user) => {
       console.log(playlistCode);
 
       spotifyApi.getPlaylist(playlistCode)
-        .then(function (data) {
+        .then((data) => {
           console.log('Playlist data', data.body);
 
           let tracks = [];
@@ -88,7 +141,7 @@ const spotifyUser = (user) => {
           console.log("Actual tracks:");
           console.log(tracks);
 
-        }, function (err) {
+        }, (err) => {
           console.log('Error while getting playlist info', err);
         });
 
@@ -97,12 +150,21 @@ const spotifyUser = (user) => {
     });
 }
 
-const addGenre = (songs) = {
+const addGenre = (songs) => {
+
+  for (let i = 0; i < songs.length; i++) {
+    if (i < 7) {
+      songs[i].genre = ["rock"];
+    } else {
+      songs[i].genre = ["pop"];
+    }
+  }
   
+  console.log("This song has the following genres: ")
+
 }
 
 const spotifyPlaylist = (playlistLink) => {
-
   let playlistCode = getPlaylistCode(playlistLink);
 
   spotifyApi.getPlaylist(playlistCode)
@@ -116,12 +178,19 @@ const spotifyPlaylist = (playlistLink) => {
       console.log("Actual tracks:");
       console.log(tracks.length);
 
-      console.log("Playlist name: ", data.body.name)
-
       addGenre(tracks);
 
       mainPlayLists.push(tracks);
 
+      for (let i = 0; i < tracks.length; i++) {
+        artistCode = getArtistCode(tracks[i].track.artists[0].external_urls.spotify);
+        codes.push(artistCode);
+      }
+
+      console.log(codes);
+
+      console.log("Playlist name: ", data.body.name)
+      console.log(mainPlayLists);
       console.log("Main playlist after adding a playlist")
       console.log("Main playlist has ", mainPlayLists.length, " playlists");
 
@@ -131,12 +200,11 @@ const spotifyPlaylist = (playlistLink) => {
 }
 
 spotifyPlaylist(`https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/5pmn8JWKAH08yjPZ87DPoz?si=vNl65QkITWqAWSx7EnFMgQ`);
+
+// matchGenres(mainPlayLists, genres);
 spotifyPlaylist(`https://open.spotify.com/user/michael.rabbai/playlist/0gBRNNupxz2Km4uUSGLkys?si=zGO-HFDgTAOr_y0PYVoqYg`);
 
-app.get('/getdata', (req, res) => {
-  res.redirect(`https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=http://${req.hostname}/playlists.html&scope=playlist-read-private`)
-})
-app.get('/playlists', (_, res) => res.send(playlists))
+// addGenre(sampleSong);
 
 /**
  * Add playlists to global 
