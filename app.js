@@ -3,7 +3,8 @@ const express = require('express')
 const path = require('path')
 const logger = require('morgan')
 const fetch = require('node-fetch')
-const matcher = require('./cuHacking');
+const matcher = require('./public/javascripts/cuHacking');
+const routeHandler = require('./public/javascripts/routes.js');
 
 //Express app
 const app = express()
@@ -160,8 +161,6 @@ const addGenre = (songs) => {
     }
   }
   
-  console.log("This song has the following genres: ")
-
 }
 
 const spotifyPlaylist = (playlistLink) => {
@@ -182,12 +181,12 @@ const spotifyPlaylist = (playlistLink) => {
 
       mainPlayLists.push(tracks);
 
-      for (let i = 0; i < tracks.length; i++) {
-        artistCode = getArtistCode(tracks[i].track.artists[0].external_urls.spotify);
-        codes.push(artistCode);
-      }
+      // for (let i = 0; i < tracks.length; i++) {
+      //   artistCode = getArtistCode(tracks[i].track.artists[0].external_urls.spotify);
+      //   codes.push(artistCode);
+      // }
 
-      console.log(codes);
+      // console.log(codes);
 
       console.log("Playlist name: ", data.body.name)
       console.log(mainPlayLists);
@@ -202,21 +201,31 @@ const spotifyPlaylist = (playlistLink) => {
     });
 }
 
-spotifyPlaylist(`https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/5pmn8JWKAH08yjPZ87DPoz?si=vNl65QkITWqAWSx7EnFMgQ`);
+// spotifyPlaylist(`https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/5pmn8JWKAH08yjPZ87DPoz?si=vNl65QkITWqAWSx7EnFMgQ`);
+// spotifyPlaylist(`https://open.spotify.com/user/michael.rabbai/playlist/0gBRNNupxz2Km4uUSGLkys?si=zGO-HFDgTAOr_y0PYVoqYg`);
 
-// matchGenres(mainPlayLists, genres);
-spotifyPlaylist(`https://open.spotify.com/user/michael.rabbai/playlist/0gBRNNupxz2Km4uUSGLkys?si=zGO-HFDgTAOr_y0PYVoqYg`);
-
-// addGenre(sampleSong);
-
-/**
- * Add playlists to global 
- */
-app.post('/playlists', (req, res) => {
-  playlists = [...playlists, req.data]
-  return res.send({
-    ok: true
-  })
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
 })
+
+app.post('/login', (req, res) => {
+  console.log(req.body);
+
+  var playListLink = req.body.user;
+
+  console.log("Link requested: ", playListLink);
+
+  spotifyPlaylist(playListLink);
+
+  res.send(mainPlayLists);
+})
+
+app.use(express.static('public'));
+
+app.listen(3000, () => {
+  console.log("Server started on port 3000");
+})
+
+
 
 module.exports = app
