@@ -33,6 +33,7 @@ h4 {
 }
 
 .row-b {
+    padding: 20px;
     align-content: center;
     text-align: center;
     display: flex;
@@ -53,13 +54,11 @@ h4 {
 }
 
 .img-container-b {
-    height: 80px;
+    height: 100px;
     text-align: left;
 }
 
-.container-list {
-    
-}
+.container-list {}
 
 .main-login {
     color: white;
@@ -72,11 +71,11 @@ h4 {
 }
 
 .list-element {
-    color: white; 
+    color: white;
 }
 
 .list-element:hover {
-    color: white; 
+    color: white;
     background-color: #8C0EFC
 }
 
@@ -86,12 +85,28 @@ h4 {
 }
 
 .link-box {
+    font-size: 18px;
     font-family: inherit;
     height: 40px;
-    width: 40%;
+    width: 80%;
     border-radius: 20px;
     border-width: 0;
     text-align: center;
     align-content: center;
 }
 
+.main-button {
+    background-color: black;
+    color: #05C3DE;
+    font-size: 18px;
+    font-family: inherit;
+    height: 40px;
+    width: 20%;
+    border-radius: 20px;
+    border-width: 0;
+    text-align: center;
+    align-content: center;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #05C3DE;
+}

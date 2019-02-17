@@ -17,7 +17,7 @@ const REDIRECT_URI = 'http://localhost:3000/callback';
 //GENERATES Access token
 //curl -X "POST" -H "Authorization: Basic M2Y0NjExMGNhYTk1NGJjN2JkMjE0ODhhOTdiNjY3NTk6MzdjYTE2NzJmODQxNDA4ZThmOTMyOTI1MTZiZTMzMjI=" -d grant_type=client_credentials https://accounts.spotify.com/api/token
 
-//Access token 
+//Access token
 //Request a track: 2dpaYNEQHiRxtZbfNsse99
 //curl -H "Authorization: Bearer BQAnyB16-GdjO7xJKOoBy0pQ6G2mGHwdsxzorWQBUjy6Po3oCvuupEapak5bp7vKs5lkDJOtYspgDd7Amxc" https://api.spotify.com/v1/tracks/2dpaYNEQHiRxtZbfNsse99
 
@@ -32,7 +32,13 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri: REDIRECT_URI
 })
 
-let accessToken = 'BQB_l7Z5B27HgNjLd2AiKKmICHRoi3dDbtC2rFQOJ3V6d1CXyML3rz6m5aIwi87640UU_L8pw2zneBAdO-k';
+var spotifyApi = new SpotifyWebApi();
+spotifyApi.setAccessToken('BQAQngO....jYv4g');
+spotifyApi.getUserPlaylists('12186155030').then(function (data) {
+  console.log(data.body);
+});
+
+let accessToken = 'BQBRuJRCj69hf-_rqOJJKcIv1oIfwCoa5h_1wthyaw2Vm-PmiEzPucFc3WPIbsoaRtXRjqypUf-FTZyupjE'
 
 spotifyApi.setAccessToken(accessToken);
 
@@ -86,8 +92,7 @@ const getArtistCode = (link) => {
   return result;
 }
 
-const getArtistGenre = async (artists) =>
-{
+const getArtistGenre = async (artists) => {
   return await spotifyApi.getArtist(artists[i])
     .then((data) => {
       getArtistGenre(artists)
@@ -107,42 +112,42 @@ const getArtistGenres = async (artists) => {
     });
 }
 
-//Sample user 
+//Sample user
 //https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k?si=RjI0KmhlSdeFw-QEg9KfpA
-//Sample playlist 
+//Sample playlist
 //https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/1PBjEtPjjLvd9HClk9iJrF?si=kt9NTki2QtuboPaRYd4QkA
 
 const spotifyUser = (user) => {
   spotifyApi.getUserPlaylists('dc0gj9dfmo6tofbdkkx8ah09k')
     .then((data) => {
-      //console.log('Retrieved playlists', data.body);
+      ////console.log('Retrieved playlists', data.body);
 
       let listSongs = data.body.items[0].tracks
-      console.log("These are the tracks of first playlist");
-      console.log(listSongs);
+      //console.log("These are the tracks of first playlist");
+      //console.log(listSongs);
 
       let playlistLink = listSongs.href;
 
-      console.log("This is the link of playlist");
-      console.log(playlistLink);
+      //console.log("This is the link of playlist");
+      //console.log(playlistLink);
 
       let playlistCode = "";
 
       playlistCode = getPlaylistCode(playlistLink);
 
-      console.log("This is the code: ");
-      console.log(playlistCode);
+      //console.log("This is the code: ");
+      //console.log(playlistCode);
 
       spotifyApi.getPlaylist(playlistCode)
         .then((data) => {
-          console.log('Playlist data', data.body);
+          //console.log('Playlist data', data.body);
 
           let tracks = [];
 
           tracks = data.body.tracks.items;
 
-          console.log("Actual tracks:");
-          console.log(tracks);
+          //          //console.log("Actual tracks:");
+          //          //console.log(tracks);
 
         }, (err) => {
           console.log('Error while getting playlist info', err);
@@ -161,7 +166,7 @@ const addGenre = (songs) => {
       songs[i].genre = "pop";
     }
   }
-  
+
 }
 
 const spotifyPlaylist = (playlistLink) => {
@@ -169,14 +174,14 @@ const spotifyPlaylist = (playlistLink) => {
 
   spotifyApi.getPlaylist(playlistCode)
     .then((data) => {
-      console.log('Adding: ', data.body.name);
+      //      //console.log('Adding: ', data.body.name);
 
       let tracks = [];
 
       tracks = data.body.tracks.items;
 
-      console.log("Actual tracks:");
-      console.log(tracks.length);
+      //      //console.log("Actual tracks:");
+      //      //console.log(tracks.length);
 
       addGenre(tracks);
 
@@ -187,27 +192,43 @@ const spotifyPlaylist = (playlistLink) => {
       //   codes.push(artistCode);
       // }
 
-      // console.log(codes);
+      // //console.log(codes);
 
-      console.log("Playlist name: ", data.body.name)
-      console.log(mainPlayLists);
+      //      //console.log("Playlist name: ", data.body.name)
+      //      //console.log(mainPlayLists);
+      //      //console.log(matcher.createPlaylist(mainPlayLists));
 
-      console.log(matcher.createPlaylist(mainPlayLists));
+      let actualPlaylist = matcher.createPlaylist(mainPlayLists);
+      let playlistIDs = [];
+      for (let i = 0; i < actualPlaylist.length; i++) {
+        playlistIDs.push("spotify:track:" + actualPlaylist[i].track.id)
+      }
+      console.log(playlistIDs)
+
+      // Create a private playlist
+      let name = 'My Cool Playlist'
+      create = (name) => spotifyApi.createPlaylist(name, {
+          "public": true
+        })
+        .then(function (data) {
+          console.log('Created playlist!');
+        }, function (err) {
+          console.log('Something went wrong!', err);
+        });
+      create(name)
 
       return matcher.createPlaylist(mainPlayLists);
-
-      console.log("Main playlist after adding a playlist")
-      console.log("Main playlist has ", mainPlayLists.length, " playlists");
-
     }, (err) => {
-      console.log('Error while getting playlist info', err);
+      //      //console.log('Error while getting playlist info', err);
     });
 }
 
-// spotifyPlaylist(`https://open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/5pmn8JWKAH08yjPZ87DPoz?si=vNl65QkITWqAWSx7EnFMgQ`);
-// spotifyPlaylist(`https://open.spotify.com/user/michael.rabbai/playlist/0gBRNNupxz2Km4uUSGLkys?si=zGO-HFDgTAOr_y0PYVoqYg`);
+spotifyPlaylist('https: //open.spotify.com/user/dc0gj9dfmo6tofbdkkx8ah09k/playlist/5pmn8JWKAH08yjPZ87DPoz?si=vNl65QkITWqAWSx7EnFMgQ');
+//spotifyPlaylist(https://open.spotify.com/user/michael.rabbai/playlist/0gBRNNupxz2Km4uUSGLkys?si=zGO-HFDgTAOr_y0PYVoqYg);
 
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
@@ -215,21 +236,19 @@ app.get('/', (req, res) => {
 })
 
 app.post('/playlists', (req, res) => {
-  console.log(req.body);
+  //  //console.log(req.body);
 
   var playListLink = req.body.link;
 
-  console.log("Link requested: ", playListLink);
+  //  //console.log("Link requested: ", playListLink);
 
   spotifyPlaylist(playListLink);
 })
 
 app.use(express.static('public'));
 
-app.listen(process.env.PORT || 80, () => {
-  console.log("Server started on port 3000");
+app.listen(3000, () => {
+  //console.log("Server started on port 3000");
 })
-
-
 
 module.exports = app
