@@ -50,7 +50,7 @@ var spotifyApi = new SpotifyWebApi({
 //http://localhost:3000/callback?code=AQB9IGpZkys7b0_ZRNAqRd4ADiIcGLFQXwpIsb9MRaEv_E_y_eBOszLe9Afp1TKyv628s6XTTwhio8EJRrZhGfqulvApgdtFJ9m3nCdnN_cK4-M-NpA0taM5vMOv-aTdE4Odc7T_wzhtOJDq907di3DlUe7Uv04FXoeEEBob2OhICpKjE9eYuUxyadcPT8oRzwn6h-bHdsQu8ex5QHiSsXbrdsgbM1ElzVpTWlfhG8Uj-Hkq_svojLdwGZFV--ZM5mOhfIsfGyIlcM4QTPKEW8ilCrC0IUzkwbx5JeGskL9cxCMxsazUB2QzchExpmFfbinJulLG1b6r4QU&state=LOGIN
 
 let accessCode = 'AQB9IGpZkys7b0_ZRNAqRd4ADiIcGLFQXwpIsb9MRaEv_E_y_eBOszLe9Afp1TKyv628s6XTTwhio8EJRrZhGfqulvApgdtFJ9m3nCdnN_cK4-M-NpA0taM5vMOv-aTdE4Odc7T_wzhtOJDq907di3DlUe7Uv04FXoeEEBob2OhICpKjE9eYuUxyadcPT8oRzwn6h-bHdsQu8ex5QHiSsXbrdsgbM1ElzVpTWlfhG8Uj-Hkq_svojLdwGZFV--ZM5mOhfIsfGyIlcM4QTPKEW8ilCrC0IUzkwbx5JeGskL9cxCMxsazUB2QzchExpmFfbinJulLG1b6r4QU'
-let accessToken = 'BQC-GExAdRAWSY-WfM1l2xSCxUZA-oZB-jHedapSIdNQOgMLYf_m-BJP8zrvNzqlwdYQSs8NUTQciPh3BH0'
+let accessToken = 'BQBuesrIH-2UPXSGIH8IuuKfpILuPWipi4ymdtrwPGhSOXGP-jKhQbQgeYMie6fljdyjg76TYS2B5YJVGDo'
 
 spotifyApi.setAccessToken(accessToken);
 
@@ -264,6 +264,10 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
+})
+
+app.get('/music', (req, res) => {
+  res.send(finalPlaylist);
 })
 
 app.post('/playlists', (req, res) => {
